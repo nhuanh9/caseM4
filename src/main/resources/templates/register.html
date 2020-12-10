@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--Thông báo Username trùng-->
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+
+<form action="/addUser" method="post" th:object="${user}">
+    <input type="text" th:field="*{username}">username <br>
+    <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></td>
+
+    <input type="text" th:field="*{password}">password <br>
+    <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
+
+
+    <input type="submit" value="register" >
+</form>
+
+</body>
+</html>
