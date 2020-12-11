@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Controller
-@CrossOrigin("*")
 public class SecurityController {
     @Autowired
     private UserService userService;
@@ -36,8 +36,10 @@ public class SecurityController {
     }
 
     @GetMapping("/user/home")
-    public String homeUser() {
-        return "users/home";
+    public ModelAndView homeUser() {
+        ModelAndView modelAndView = new ModelAndView("users/home");
+
+        return modelAndView;
     }
 
     @GetMapping("/admin")
@@ -56,7 +58,7 @@ public class SecurityController {
     }
 
 
-    @GetMapping("/api/register")
+    @PostMapping("/api/register")
     public ResponseEntity<User> create(@RequestBody User user, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

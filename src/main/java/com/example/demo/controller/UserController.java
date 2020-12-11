@@ -21,7 +21,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Controller
-@CrossOrigin("*")
 public class UserController {
     @Autowired
     private UserService userService;

@@ -3,7 +3,9 @@ package com.example.demo.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.lang.annotation.Target;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,6 +26,7 @@ public class Question {
 
     private Date date;
 
-
+    @OneToMany(targetEntity = Answer.class)
+    private List<Answer> listAnswer;
 
 }
