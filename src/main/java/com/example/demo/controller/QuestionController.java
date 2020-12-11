@@ -67,14 +67,33 @@ public class QuestionController {
 
 
     @GetMapping("/{id}")
-    public ModelAndView getAllQuestion(@PathVariable("id") Long id) {
+    public ModelAndView getQuestionById(@PathVariable("id") Long id) {
         Optional<Question> question = questionService.findById(id);
         Iterable<Answer> answers = answerService.getAnswerByQuestionId(id);
         ModelAndView modelAndView = new ModelAndView("question/detail");
         modelAndView.addObject("question", question.get());
         modelAndView.addObject("answers", answers);
         modelAndView.addObject("answersCount", size(answers));
+        modelAndView.addObject("newAnswer", new Answer());
         return modelAndView;
     }
 
+    @PostMapping("/{id}/add-answer")
+    public ModelAndView addAnswer(@ModelAttribute Answer answer, @PathVariable Long id) {
+        Optional<Question> question = questionService.findById(id);
+        answer.setId(null);
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        answer.setDate(date);
+        answer.setUser(userService.findById((long) 3).get());
+        answer.setQuestion(question.get());
+        answerService.save(answer);
+        Iterable<Answer> answers = answerService.getAnswerByQuestionId(id);
+        ModelAndView modelAndView = new ModelAndView("question/detail");
+        modelAndView.addObject("question", question.get());
+        modelAndView.addObject("answers", answers);
+        modelAndView.addObject("answersCount", size(answers));
+        modelAndView.addObject("newAnswer", new Answer());
+        return modelAndView;
+    }
 }
