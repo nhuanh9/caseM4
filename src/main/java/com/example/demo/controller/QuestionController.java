@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Answer;
-import com.example.demo.model.Question;
-import com.example.demo.model.Role;
-import com.example.demo.model.User;
+import com.example.demo.model.*;
 import com.example.demo.service.answer.AnswerService;
 import com.example.demo.service.question.QuestionService;
 import com.example.demo.service.role.RoleService;
@@ -11,11 +8,13 @@ import com.example.demo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.nio.file.attribute.UserPrincipal;
 import java.util.*;
 
 @Controller
@@ -51,8 +50,16 @@ public class QuestionController {
         return counter;
     }
 
+    private User getCurrentUser() {
+        Object userPrincipal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserPrinciple userPrinciple= (UserPrinciple) userPrincipal;
+        User user = userService.findByUsername(userPrinciple.getUsername());
+        return user;
+    }
+
     @GetMapping("/")
     public ModelAndView getAllQuestion() {
+//        getCurrentUser();
         Iterable<Question> listQuestion = questionService.findAll();
         ModelAndView modelAndView = new ModelAndView("question/list");
         modelAndView.addObject("questions", listQuestion);
@@ -85,7 +92,7 @@ public class QuestionController {
         Calendar cal = Calendar.getInstance();
         Date date = cal.getTime();
         answer.setDate(date);
-        answer.setUser(userService.findById((long) 3).get());
+        answer.setUser(getCurrentUser());
         answer.setQuestion(question.get());
         answerService.save(answer);
         Iterable<Answer> answers = answerService.getAnswerByQuestionId(id);
