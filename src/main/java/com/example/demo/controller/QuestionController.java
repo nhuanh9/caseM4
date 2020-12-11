@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.*;
 import com.example.demo.service.answer.AnswerService;
+import com.example.demo.service.category.CategoryService;
 import com.example.demo.service.question.QuestionService;
 import com.example.demo.service.role.RoleService;
 import com.example.demo.service.user.UserService;
@@ -32,6 +33,9 @@ public class QuestionController {
     @Autowired
     private AnswerService answerService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     //    @GetMapping("/")
 //    public ResponseEntity<Iterable<Question>> getAllQuestion() {
 //        Iterable<Question> listQuestion = questionService.findAll();
@@ -52,7 +56,7 @@ public class QuestionController {
 
     private User getCurrentUser() {
         Object userPrincipal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserPrinciple userPrinciple= (UserPrinciple) userPrincipal;
+        UserPrinciple userPrinciple = (UserPrinciple) userPrincipal;
         User user = userService.findByUsername(userPrinciple.getUsername());
         return user;
     }
@@ -101,6 +105,28 @@ public class QuestionController {
         modelAndView.addObject("answers", answers);
         modelAndView.addObject("answersCount", size(answers));
         modelAndView.addObject("newAnswer", new Answer());
+        return modelAndView;
+    }
+
+    @GetMapping("/form-create-question")
+    public ModelAndView showFormCreateQuestion() {
+        ModelAndView modelAndView = new ModelAndView("question/create");
+        Iterable<Category> categories = categoryService.findAll();
+        modelAndView.addObject("question", new Question());
+        modelAndView.addObject("categories", categories);
+        return modelAndView;
+    }
+
+    @PostMapping("/create-question")
+    public ModelAndView createQuestion(@ModelAttribute Question question) {
+        ModelAndView modelAndView = new ModelAndView("question/list");
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        question.setDate(date);
+        question.setUser(getCurrentUser());
+        questionService.save(question);
+        Iterable<Question> listQuestion = questionService.findAll();
+        modelAndView.addObject("questions", listQuestion);
         return modelAndView;
     }
 }
