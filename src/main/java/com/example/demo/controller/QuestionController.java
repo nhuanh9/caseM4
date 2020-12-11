@@ -67,6 +67,8 @@ public class QuestionController {
         Iterable<Question> listQuestion = questionService.findAll();
         ModelAndView modelAndView = new ModelAndView("question/list");
         modelAndView.addObject("questions", listQuestion);
+        Iterable<Category> categories = categoryService.findAll();
+        modelAndView.addObject("categories", categories);
         return modelAndView;
     }
 
@@ -111,8 +113,8 @@ public class QuestionController {
     @GetMapping("/form-create-question")
     public ModelAndView showFormCreateQuestion() {
         ModelAndView modelAndView = new ModelAndView("question/create");
-        Iterable<Category> categories = categoryService.findAll();
         modelAndView.addObject("question", new Question());
+        Iterable<Category> categories = categoryService.findAll();
         modelAndView.addObject("categories", categories);
         return modelAndView;
     }
@@ -127,6 +129,8 @@ public class QuestionController {
         questionService.save(question);
         Iterable<Question> listQuestion = questionService.findAll();
         modelAndView.addObject("questions", listQuestion);
+        Iterable<Category> categories = categoryService.findAll();
+        modelAndView.addObject("categories", categories);
         return modelAndView;
     }
 }

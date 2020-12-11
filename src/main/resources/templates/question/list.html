@@ -3,73 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="row mb-3">
-            <div class="col-3">Logo</div>
-            <div class="col-9">Banner</div>
-        </div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" th:href="@{/user/questions/}">Trang chủ</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
-        </nav>
-        <div class="row mt-3">
-            <div class="col-12 text-center"><h1>Danh sách câu trả lời</h1></div>
-            <div class="col-3">Ads</div>
-            <div class="col-9">
-                <div class="row mt-3">
-                    <div class="col-12 mt-2">
-                        <a th:href="@{/user/questions/form-create-question}" class="btn btn-success">Thêm câu hỏi</a>
-                    </div>
-                    <div class="col-12 mt-2" th:each="question: ${questions}">
-                        <div class="card" style="width: 100%; border: 1px solid">
-                            <div class="card-body">
-                                <h5 class="card-title" th:text="${question.category.name}"></h5>
-                                <p class="card-text" th:text="${question.content}"></p>
-                                <a th:href="@{/user/questions/__${question.id}__}" class="btn btn-primary">Xem câu trả lời</a>
-                            </div>
-                        </div>
-                    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="ml-5 navbar-brand" th:href="@{/user/questions/}">UTC SP</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/user/questions/}">Trang chủ <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Thể loại
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div th:each="category: ${categories}">
+                        <a class="dropdown-item" href="#" th:text="${category.name}">Action</a>
+                    </div>
                 </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0 mr-5">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<div class="container">
+<!--    <div class="row mb-3">-->
+<!--        <div class="col-3">Logo</div>-->
+<!--        <div class="col-9">Banner</div>-->
+<!--    </div>-->
+    <div class="row mt-3">
+        <div class="col-12 text-center"><h1>Danh sách câu hỏi</h1></div>
+<!--        <div class="col-3">Ads</div> -->
+        <div class="col-12">
+            <div class="row mt-3">
+                <div class="col-12 mt-2 text-center">
+                    <a th:href="@{/user/questions/form-create-question}" class="btn btn-success">Thêm câu hỏi</a>
+                </div>
+                <div class="col-12 mt-2" th:each="question: ${questions}">
+                    <div class="card" style="width: 100%; border: 1px solid">
+                        <div class="card-body">
+                            <h3 class="card-title" th:text="${question.content}"></h3>
+                            <b th:text="${question.user.username}" style="font-size: 10px; color: #9fa5a5"></b> <i
+                                th:text="${question.date}" style="font-size: 10px; color: #9fa5a5"></i>
+                            <p>Thể loại: <a class="card-text" th:text="${question.category.name}" style="font-weight: bold"></a></p>
+                            <a th:href="@{/user/questions/__${question.id}__}" class="btn btn-primary">Xem câu trả
+                                lời</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>
