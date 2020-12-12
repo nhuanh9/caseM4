@@ -69,6 +69,19 @@ public class QuestionController {
         modelAndView.addObject("questions", listQuestion);
         Iterable<Category> categories = categoryService.findAll();
         modelAndView.addObject("categories", categories);
+        modelAndView.addObject("currentUser", getCurrentUser());
+        return modelAndView;
+    }
+
+    @GetMapping("/category/{id}")
+    public ModelAndView getAllQuestion(@PathVariable("id") Long id) {
+//        getCurrentUser();
+        Iterable<Question> listQuestion = questionService.getQuestionByCategoryId(id);
+        ModelAndView modelAndView = new ModelAndView("question/list");
+        modelAndView.addObject("questions", listQuestion);
+        Iterable<Category> categories = categoryService.findAll();
+        modelAndView.addObject("categories", categories);
+        modelAndView.addObject("currentUser", getCurrentUser());
         return modelAndView;
     }
 
@@ -131,6 +144,33 @@ public class QuestionController {
         modelAndView.addObject("questions", listQuestion);
         Iterable<Category> categories = categoryService.findAll();
         modelAndView.addObject("categories", categories);
+        modelAndView.addObject("currentUser", getCurrentUser());
+        return modelAndView;
+    }
+
+    @GetMapping("/form-edit-question/{id}")
+    public ModelAndView showFormEditQuestion(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("question/edit");
+        Optional<Question> question = questionService.findById(id);
+        modelAndView.addObject("question", question.get());
+        Iterable<Category> categories = categoryService.findAll();
+        modelAndView.addObject("categories", categories);
+        return modelAndView;
+    }
+
+
+    @PostMapping("/edit-question")
+    public ModelAndView editQuestion(@ModelAttribute Question question) {
+        ModelAndView modelAndView = new ModelAndView("question/list");
+        Optional<Question> lastQuestion = questionService.findById(question.getId());
+        question.setDate(lastQuestion.get().getDate());
+        question.setUser(getCurrentUser());
+        questionService.save(question);
+        Iterable<Question> listQuestion = questionService.findAll();
+        modelAndView.addObject("questions", listQuestion);
+        Iterable<Category> categories = categoryService.findAll();
+        modelAndView.addObject("categories", categories);
+        modelAndView.addObject("currentUser", getCurrentUser());
         return modelAndView;
     }
 }

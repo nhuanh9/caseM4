@@ -36,7 +36,8 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <div th:each="category: ${categories}">
-                        <a class="dropdown-item" href="#" th:text="${category.name}">Action</a>
+                        <a class="dropdown-item" th:href="@{/user/questions/category/__${category.id}__}"
+                           th:text="${category.name}">Action</a>
                     </div>
                 </div>
             </li>
@@ -48,13 +49,13 @@
     </div>
 </nav>
 <div class="container">
-<!--    <div class="row mb-3">-->
-<!--        <div class="col-3">Logo</div>-->
-<!--        <div class="col-9">Banner</div>-->
-<!--    </div>-->
+    <!--    <div class="row mb-3">-->
+    <!--        <div class="col-3">Logo</div>-->
+    <!--        <div class="col-9">Banner</div>-->
+    <!--    </div>-->
     <div class="row mt-3">
         <div class="col-12 text-center"><h1>Danh sách câu hỏi</h1></div>
-<!--        <div class="col-3">Ads</div> -->
+        <!--        <div class="col-3">Ads</div> -->
         <div class="col-12">
             <div class="row mt-3">
                 <div class="col-12 mt-2 text-center">
@@ -66,9 +67,14 @@
                             <h3 class="card-title" th:text="${question.content}"></h3>
                             <b th:text="${question.user.username}" style="font-size: 10px; color: #9fa5a5"></b> <i
                                 th:text="${question.date}" style="font-size: 10px; color: #9fa5a5"></i>
-                            <p>Thể loại: <a class="card-text" th:text="${question.category.name}" style="font-weight: bold"></a></p>
+                            <p>Thể loại: <a class="card-text" th:text="${question.category.name}"
+                                            th:href="@{/user/questions/category/__${question.category.id}__}"
+                                            style="font-weight: bold"></a></p>
                             <a th:href="@{/user/questions/__${question.id}__}" class="btn btn-primary">Xem câu trả
                                 lời</a>
+                            <a th:if="${currentUser.id} == ${question.user.id}"
+                               th:href="@{/user/questions/form-edit-question/__${question.id}__}"
+                               class="btn btn-success">Sửa câu hỏi</a>
                         </div>
                     </div>
                 </div>

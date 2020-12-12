@@ -29,7 +29,8 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <div th:each="category: ${categories}">
-                        <a class="dropdown-item" href="#" th:text="${category.name}">Action</a>
+                        <a class="dropdown-item" th:href="@{/user/questions/category/__${category.id}__}"
+                           th:text="${category.name}">Action</a>
                     </div>
                 </div>
             </li>

@@ -34,4 +34,9 @@ public class QuestionService implements IQuestionService{
     public Iterable<Question> getQuestionByUserId(Long id) {
         return questionRepository.getQuestionByUserId(id);
     }
+
+    @Override
+    public Iterable<Question> getQuestionByCategoryId(Long id) {
+        return questionRepository.getQuestionByCategoryId(id);
+    }
 }

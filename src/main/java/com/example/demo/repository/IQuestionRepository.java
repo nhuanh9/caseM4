@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IQuestionRepository  extends JpaRepository<Question, Long> {
     Iterable<Question> getQuestionByUserId(Long id);
+    Iterable<Question> getQuestionByCategoryId(Long id);
 }
