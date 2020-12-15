@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -61,7 +63,7 @@ public class LikeController {
 
     private boolean checkLike(User user, Answer answer, Iterable<LikeQuestion> likeQuestions) {
         for (LikeQuestion i: likeQuestions){
-            if (i.getAnswer()==answer && i.getUser() == user) {
+            if (i.getAnswer()==answer && i.getUser() == user && i.isLiked()) {
                 return false;
             }
         }
@@ -75,6 +77,7 @@ public class LikeController {
         if (checkLike(user, answer, likeQuestionService.findAll())) {
             like.setAnswer(answer);
             like.setUser(user);
+            like.setLiked(true);
             likeQuestionService.save(like);
         }
         Iterable<Answer> answers = answerService.getAnswerByQuestionId(answer.getQuestion().getId());

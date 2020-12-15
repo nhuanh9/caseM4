@@ -113,6 +113,7 @@ public class QuestionController {
         answer.setDate(date);
         answer.setUser(getCurrentUser());
         answer.setQuestion(question.get());
+        answer.setLikes((long) 0);
         answerService.save(answer);
         Iterable<Answer> answers = answerService.getAnswerByQuestionId(id);
         ModelAndView modelAndView = new ModelAndView("question/detail");
