@@ -62,12 +62,13 @@
                     <div class="card" style="width: 100%; border: 1px solid">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${answer.user.getUsername()}" style="color: blue"></h5>
-                            <p class="card-text" th:text="${answer.content}"></p>
-                            <i class="card-text" style="font-size: 10px; color: #7c8686" th:text="${answer.date}"></i>
-                            <form th:action="@{/user/like/__${answer.id}__}" method="post" th:object="${likePost}">
+                            <p class="card-text" th:text="${answer.answer.content}"></p>
+                            <i class="card-text" style="font-size: 10px; color: #7c8686" th:text="${answer.answer.date}"></i>
+                            <form th:if="${answer.isLiked == false}" th:action="@{/user/like/__${answer.answer.id}__}" method="post" th:object="${likePost}">
                                 <!--    <input type="text" class="form-control" th:field="*{likePost}">-->
                                 <input type="submit" value="like">
                             </form>
+                            <span th:text="${answer.answer.likes}"></span> likes
 <!--                            <a th:href="@{/user/questions/__${question.id}__}" class="btn btn-primary">Xem câu trả lời</a>-->
                         </div>
                     </div>

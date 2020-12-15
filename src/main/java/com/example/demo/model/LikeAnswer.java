@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class LikeQuestion {
+public class LikeAnswer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long like_id;

@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.*;
 import com.example.demo.service.answer.AnswerService;
 import com.example.demo.service.category.CategoryService;
+import com.example.demo.service.likeQuestion.LikeQuestionService;
 import com.example.demo.service.question.QuestionService;
 import com.example.demo.service.role.RoleService;
 import com.example.demo.service.user.UserService;
@@ -26,6 +27,9 @@ public class QuestionController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private LikeQuestionService likeQuestionService;
 
     @Autowired
     private QuestionService questionService;
@@ -91,6 +95,21 @@ public class QuestionController {
         return new ResponseEntity<>(listQuestion, HttpStatus.OK);
     }
 
+    private List<UserLikeAnswer> userLikeAnswers(User user, Iterable<Answer> answers, Iterable<LikeAnswer> likeAnswers) {
+        List<UserLikeAnswer> userLikeAnswers = new ArrayList<>();
+        for (Answer i : answers) {
+            UserLikeAnswer userLikeAnswer = new UserLikeAnswer();
+            userLikeAnswer.setAnswer(i);
+            userLikeAnswer.setUser(user);
+            for (LikeAnswer j : likeAnswers) {
+                if (j.getUser() == user && j.getAnswer() == i && j.isLiked()) {
+                    userLikeAnswer.setLiked(true);
+                }
+            }
+            userLikeAnswers.add(userLikeAnswer);
+        }
+        return userLikeAnswers;
+    }
 
     @GetMapping("/{id}")
     public ModelAndView getQuestionById(@PathVariable("id") Long id) {
@@ -98,7 +117,8 @@ public class QuestionController {
         Iterable<Answer> answers = answerService.getAnswerByQuestionId(id);
         ModelAndView modelAndView = new ModelAndView("question/detail");
         modelAndView.addObject("question", question.get());
-        modelAndView.addObject("answers", answers);
+//        modelAndView.addObject("answers", answers);
+        modelAndView.addObject("answers", userLikeAnswers(getCurrentUser(), answers, likeQuestionService.findAll()));
         modelAndView.addObject("answersCount", size(answers));
         modelAndView.addObject("newAnswer", new Answer());
         return modelAndView;
@@ -118,7 +138,8 @@ public class QuestionController {
         Iterable<Answer> answers = answerService.getAnswerByQuestionId(id);
         ModelAndView modelAndView = new ModelAndView("question/detail");
         modelAndView.addObject("question", question.get());
-        modelAndView.addObject("answers", answers);
+//        modelAndView.addObject("answers", answers);
+        modelAndView.addObject("answers", userLikeAnswers(getCurrentUser(), answers, likeQuestionService.findAll()));
         modelAndView.addObject("answersCount", size(answers));
         modelAndView.addObject("newAnswer", new Answer());
         return modelAndView;

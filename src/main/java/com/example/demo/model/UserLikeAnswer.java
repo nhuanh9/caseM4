@@ -3,8 +3,8 @@ package com.example.demo.model;
 import lombok.Data;
 
 @Data
-public class UserLikeQuestion {
+public class UserLikeAnswer {
     private User user;
-    private Question question;
+    private Answer answer;
     private boolean isLiked;
 }

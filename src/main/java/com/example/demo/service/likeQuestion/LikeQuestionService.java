@@ -1,9 +1,7 @@
 package com.example.demo.service.likeQuestion;
 
-import com.example.demo.model.LikeQuestion;
-import com.example.demo.model.Question;
+import com.example.demo.model.LikeAnswer;
 import com.example.demo.repository.ILikeQuestionRepository;
-import com.example.demo.service.IGeneralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +13,17 @@ public class LikeQuestionService implements ILikeQuestionService{
     ILikeQuestionRepository likeQuestionRepository;
 
     @Override
-    public Iterable<LikeQuestion> findAll() {
+    public Iterable<LikeAnswer> findAll() {
         return likeQuestionRepository.findAll();
     }
 
     @Override
-    public LikeQuestion save(LikeQuestion likeQuestion) {
-        return likeQuestionRepository.save(likeQuestion);
+    public LikeAnswer save(LikeAnswer likeAnswer) {
+        return likeQuestionRepository.save(likeAnswer);
     }
 
     @Override
-    public Optional<LikeQuestion> findById(Long id) {
+    public Optional<LikeAnswer> findById(Long id) {
         return likeQuestionRepository.findById(id);
     }
 
