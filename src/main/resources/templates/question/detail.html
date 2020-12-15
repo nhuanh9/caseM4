@@ -64,6 +64,10 @@
                             <h5 class="card-title" th:text="${answer.user.getUsername()}" style="color: blue"></h5>
                             <p class="card-text" th:text="${answer.content}"></p>
                             <i class="card-text" style="font-size: 10px; color: #7c8686" th:text="${answer.date}"></i>
+                            <form th:action="@{/user/like/__${answer.id}__}" method="post" th:object="${likePost}">
+                                <!--    <input type="text" class="form-control" th:field="*{likePost}">-->
+                                <input type="submit" value="like">
+                            </form>
 <!--                            <a th:href="@{/user/questions/__${question.id}__}" class="btn btn-primary">Xem câu trả lời</a>-->
                         </div>
                     </div>
@@ -77,6 +81,7 @@
                     </form>
 <!--                    <a th:href="@{/user/questions/__${question.id}__/add-answer}" class="btn btn-primary">Thêm câu trả lời</a>-->
                 </div>
+
             </div>
         </div>
     </div>
