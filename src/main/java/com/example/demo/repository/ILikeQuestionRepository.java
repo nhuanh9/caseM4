@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ILikeQuestionRepository extends JpaRepository<LikeAnswer, Long> {
+    Iterable<LikeAnswer> findAllByUserId(Long id);
+    LikeAnswer findByUserIdAndAnswerId(Long idUser, Long answerId);
 }

@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @Data
-public class Answer {
+public class Answer implements Comparable<Answer>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -72,5 +72,10 @@ public class Answer {
 
     public void setLikes(Long likes) {
         this.likes = likes;
+    }
+
+    @Override
+    public int compareTo(Answer o) {
+        return (int) (-this.likes+o.likes);
     }
 }

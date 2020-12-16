@@ -5,16 +5,21 @@ import com.example.demo.repository.IAnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 public class AnswerService implements IAnswerService {
     @Autowired
     IAnswerRepository iAnswerRepository;
+//    @Override
+//    public Iterable<Answer> findAll() {
+//        return iAnswerRepository.findAll();
+//    }
+
     @Override
-    public Iterable<Answer> findAll() {
+    public List<Answer> findAll() {
         return iAnswerRepository.findAll();
     }
-
     @Override
     public Answer save(Answer answer) {
         return iAnswerRepository.save(answer);
@@ -31,12 +36,13 @@ public class AnswerService implements IAnswerService {
     }
 
     @Override
-    public Iterable<Answer> getAnswerByQuestionId(Long id) {
+    public List<Answer> getAnswerByQuestionId(Long id) {
         return iAnswerRepository.getAnswerByQuestionId(id);
     }
 
     @Override
-    public Iterable<Answer> getAnswerByUserId(Long id) {
+    public List<Answer> getAnswerByUserId(Long id) {
         return iAnswerRepository.getAnswerByUserId(id);
     }
+
 }

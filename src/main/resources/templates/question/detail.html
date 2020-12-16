@@ -66,9 +66,12 @@
                             <i class="card-text" style="font-size: 10px; color: #7c8686" th:text="${answer.answer.date}"></i>
                             <form th:if="${answer.isLiked == false}" th:action="@{/user/like/__${answer.answer.id}__}" method="post" th:object="${likePost}">
                                 <!--    <input type="text" class="form-control" th:field="*{likePost}">-->
-                                <input type="submit" value="like">
+                                <input type="submit" value="Like">
                             </form>
-                            <span th:text="${answer.answer.likes}"></span> likes
+                            <form th:if="${answer.isLiked == true}" th:action="@{/user/dislike/__${answer.answer.id}__}" method="post" th:object="${likePost}">
+                                <input type="submit" value="Unlike">
+                            </form>
+                            <span th:if="${answer.answer.likes != null}" th:text="${answer.answer.likes}"></span> likes
 <!--                            <a th:href="@{/user/questions/__${question.id}__}" class="btn btn-primary">Xem câu trả lời</a>-->
                         </div>
                     </div>

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -68,13 +69,14 @@ public class LikeController {
         }
         return true;
     }
+
     private List<UserLikeAnswer> userLikeAnswers(User user, Iterable<Answer> answers, Iterable<LikeAnswer> likeAnswers) {
-        List<UserLikeAnswer> userLikeAnswers =  new ArrayList<>();
-        for (Answer i: answers) {
+        List<UserLikeAnswer> userLikeAnswers = new ArrayList<>();
+        for (Answer i : answers) {
             UserLikeAnswer userLikeAnswer = new UserLikeAnswer();
             userLikeAnswer.setAnswer(i);
             userLikeAnswer.setUser(user);
-            for (LikeAnswer j: likeAnswers) {
+            for (LikeAnswer j : likeAnswers) {
                 if (j.getUser() == user && j.getAnswer() == i && j.isLiked()) {
                     userLikeAnswer.setLiked(true);
                 }
@@ -84,6 +86,7 @@ public class LikeController {
         }
         return userLikeAnswers;
     }
+
     @PostMapping("/like/{id}")
     public ModelAndView likePost(@ModelAttribute("likePost") LikeAnswer like, @PathVariable Long id) {
         Answer answer = answerService.findById(id).get();
@@ -93,14 +96,38 @@ public class LikeController {
             like.setUser(user);
             like.setLiked(true);
             Long oldLikes = answer.getLikes();
-            oldLikes = oldLikes==null?Long.valueOf(0):oldLikes;
-            answer.setLikes(oldLikes+Long.valueOf(1));
+            oldLikes = oldLikes == null ? Long.valueOf(0) : oldLikes;
+            answer.setLikes(oldLikes + Long.valueOf(1));
             answerService.save(answer);
             likeQuestionService.save(like);
         }
-        Iterable<Answer> answers = answerService.getAnswerByQuestionId(answer.getQuestion().getId());
+        List<Answer> answers = answerService.getAnswerByQuestionId(answer.getQuestion().getId());
         ModelAndView modelAndView = new ModelAndView("question/detail");
         modelAndView.addObject("question", answer.getQuestion());
+        Collections.sort(answers);
+        modelAndView.addObject("answers", userLikeAnswers(user, answers, likeQuestionService.findAll()));
+        modelAndView.addObject("answersCount", size(answers));
+        modelAndView.addObject("newAnswer", new Answer());
+        return modelAndView;
+    }
+
+    @PostMapping("/dislike/{id}")
+    public ModelAndView dislikePost(@ModelAttribute("likePost") LikeAnswer like, @PathVariable Long id) {
+        Answer answer = answerService.findById(id).get();
+        User user = userService.findById(getCurrentUser().getId()).get();
+        LikeAnswer likeAnswer = likeQuestionService.findByUserIdAndAnswerId(user.getId(), answer.getId());
+        if (!checkLike(user, answer, likeQuestionService.findAll())) {
+            likeAnswer.setLiked(false);
+            Long oldLikes = answer.getLikes();
+            oldLikes = oldLikes == null ? Long.valueOf(0) : oldLikes;
+            answer.setLikes(oldLikes - Long.valueOf(1));
+            answerService.save(answer);
+            likeQuestionService.save(likeAnswer);
+        }
+        List<Answer> answers = answerService.getAnswerByQuestionId(answer.getQuestion().getId());
+        ModelAndView modelAndView = new ModelAndView("question/detail");
+        modelAndView.addObject("question", answer.getQuestion());
+        Collections.sort(answers);
         modelAndView.addObject("answers", userLikeAnswers(user, answers, likeQuestionService.findAll()));
         modelAndView.addObject("answersCount", size(answers));
         modelAndView.addObject("newAnswer", new Answer());

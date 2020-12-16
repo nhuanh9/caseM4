@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class LikeAnswer {
+public class LikeAnswer  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long like_id;
@@ -22,7 +22,7 @@ public class LikeAnswer {
     private boolean isLiked;
 
     public boolean isLiked() {
-        return true;
+        return isLiked;
     }
 
     public void setLiked(boolean liked) {

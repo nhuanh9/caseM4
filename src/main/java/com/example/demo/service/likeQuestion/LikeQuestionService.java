@@ -1,5 +1,6 @@
 package com.example.demo.service.likeQuestion;
 
+import com.example.demo.model.Answer;
 import com.example.demo.model.LikeAnswer;
 import com.example.demo.repository.ILikeQuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,15 @@ public class LikeQuestionService implements ILikeQuestionService{
     @Override
     public void remove(Long id) {
         likeQuestionRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<LikeAnswer> findAllByUserId(Long id) {
+        return likeQuestionRepository.findAllByUserId(id);
+    }
+
+    @Override
+    public LikeAnswer findByUserIdAndAnswerId(Long idUser, Long answerId) {
+        return likeQuestionRepository.findByUserIdAndAnswerId(idUser, answerId);
     }
 }

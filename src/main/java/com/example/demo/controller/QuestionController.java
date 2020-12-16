@@ -114,10 +114,11 @@ public class QuestionController {
     @GetMapping("/{id}")
     public ModelAndView getQuestionById(@PathVariable("id") Long id) {
         Optional<Question> question = questionService.findById(id);
-        Iterable<Answer> answers = answerService.getAnswerByQuestionId(id);
+        List<Answer> answers = answerService.getAnswerByQuestionId(id);
         ModelAndView modelAndView = new ModelAndView("question/detail");
         modelAndView.addObject("question", question.get());
 //        modelAndView.addObject("answers", answers);
+        Collections.sort(answers);
         modelAndView.addObject("answers", userLikeAnswers(getCurrentUser(), answers, likeQuestionService.findAll()));
         modelAndView.addObject("answersCount", size(answers));
         modelAndView.addObject("newAnswer", new Answer());
@@ -135,10 +136,11 @@ public class QuestionController {
         answer.setQuestion(question.get());
         answer.setLikes((long) 0);
         answerService.save(answer);
-        Iterable<Answer> answers = answerService.getAnswerByQuestionId(id);
+        List<Answer> answers = answerService.getAnswerByQuestionId(id);
         ModelAndView modelAndView = new ModelAndView("question/detail");
         modelAndView.addObject("question", question.get());
 //        modelAndView.addObject("answers", answers);
+        Collections.sort(answers);
         modelAndView.addObject("answers", userLikeAnswers(getCurrentUser(), answers, likeQuestionService.findAll()));
         modelAndView.addObject("answersCount", size(answers));
         modelAndView.addObject("newAnswer", new Answer());
