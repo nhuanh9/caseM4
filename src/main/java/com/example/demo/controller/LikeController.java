@@ -33,6 +33,7 @@ public class LikeController {
     @Autowired
     private QuestionService questionService;
 
+
     @Autowired
     private AnswerService answerService;
 
@@ -91,15 +92,22 @@ public class LikeController {
     public ModelAndView likePost(@ModelAttribute("likePost") LikeAnswer like, @PathVariable Long id) {
         Answer answer = answerService.findById(id).get();
         User user = userService.findById(getCurrentUser().getId()).get();
+        LikeAnswer lastLike = likeQuestionService.findByUserIdAndAnswerId(user.getId(), answer.getId());
         if (checkLike(user, answer, likeQuestionService.findAll())) {
-            like.setAnswer(answer);
-            like.setUser(user);
-            like.setLiked(true);
+            if (lastLike == null) {
+                like.setAnswer(answer);
+                like.setUser(user);
+                like.setLiked(true);
+                likeQuestionService.save(like);
+            } else  {
+                lastLike.setLiked(true);
+                likeQuestionService.save(lastLike);
+            }
             Long oldLikes = answer.getLikes();
             oldLikes = oldLikes == null ? Long.valueOf(0) : oldLikes;
             answer.setLikes(oldLikes + Long.valueOf(1));
             answerService.save(answer);
-            likeQuestionService.save(like);
+
         }
         List<Answer> answers = answerService.getAnswerByQuestionId(answer.getQuestion().getId());
         ModelAndView modelAndView = new ModelAndView("question/detail");
