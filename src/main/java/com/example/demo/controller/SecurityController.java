@@ -49,7 +49,7 @@ public class SecurityController {
 
     @GetMapping("/")
     public String homePage() {
-        return "index";
+        return "redirect:/login";
     }
 
     @GetMapping("/accessDenied")
