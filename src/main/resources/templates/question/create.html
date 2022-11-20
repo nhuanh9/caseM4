@@ -62,12 +62,11 @@
                 </div>
                 <div class="col-3"></div>
                 <div class="col-6 text-center mt-3">
-                    <form class="form-group" th:action="@{/user/questions/edit-question}" th:object="${question}"
+                    <form class="form-group" th:action="@{/user/questions/create-question}" th:object="${question}"
                           method="post">
                         <div class="form-group">
                             <div class="text-left">Nội dung</div>
-                            <input type="text" th:field="*{content}" placeholder="Nhập vào nột dung câu hỏi"
-                                   class="form-control mt-2"/>
+                            <textarea name="" id="" class="form-control mt-2" cols="30" rows="10" th:field="*{content}"  placeholder="Nhập vào nột dung câu hỏi"></textarea>
                         </div>
                         <div class="form-group">
                             <div class="text-left">Thể loại</div>
