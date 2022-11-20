@@ -3,86 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="ml-5 navbar-brand" th:href="@{/user/questions/}">UTC SP</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/user/questions/}">Trang chủ <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Thể loại
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <div th:each="category: ${categories}">
-                        <a class="dropdown-item" th:href="@{/user/questions/category/__${category.id}__}"
-                           th:text="${category.name}">Action</a>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0 mr-5" action="/logout" method="post">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
-        </form>
-    </div>
-</nav>
 <div class="container">
-<!--    <div class="row mb-3">-->
-<!--        <div class="col-3">Logo</div>-->
-<!--        <div class="col-9">Banner</div>-->
-<!--    </div>-->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="ml-5 navbar-brand" th:href="@{/user/questions/}">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/LogoUTC.jpg" alt=""
+                 style="width: 50px; border-radius: 50%">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/user/questions/}">Trang chủ <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user/questions/form-create-question}">Thêm câu hỏi <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Thể loại
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div th:each="category: ${categories}">
+                            <a class="dropdown-item" th:href="@{/user/questions/category/__${category.id}__}"
+                               th:text="${category.name}">Action</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0 mr-5" action="/logout" method="post">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
+            </form>
+        </div>
+    </nav>
     <div class="row mt-3">
-<!--        <div class="col-3">Ads</div>-->
-        <div class="col-12">
+
+        <div class="col-3">
+            <h2>Thể loại</h2>
+            <div th:each="category: ${categories}" class="row">
+                <a class="col-12 mt-3 mb-3" th:href="@{/user/questions/category/__${category.id}__}"
+                   th:text="${category.name}">Action</a>
+            </div>
+        </div>
+        <div class="col-9">
             <div class="row">
-                <div class="col-12" >
-                    <h3 th:text="${question.content}"></h3>
+                <div class="col-12">
+                    <h2 th:text="${question.content}"></h2>
                     <span th:text="${question.date}"></span>
                 </div>
             </div>
             <div class="row mt-3 ml-5">
-                <h4 class="">
+                <h4 class="col-12">
                     <span th:text="${answersCount}"></span> Câu trả lời</h4>
                 <div class="col-12 mt-2" th:each="answer: ${answers}">
-                    <div class="card" style="width: 100%; border: 1px solid">
+                    <div class="card" style="width: 100%; border: 1px solid rgba(0,0,0,0.1)">
                         <div class="card-body">
-                            <h5 class="card-title" th:text="${answer.user.getUsername()}" style="color: blue"></h5>
-                            <p class="card-text" th:text="${answer.answer.content}"></p>
-                            <i class="card-text" style="font-size: 10px; color: #7c8686" th:text="${answer.answer.date}"></i>
-                            <form th:if="${answer.isLiked == false}" th:action="@{/user/like/__${answer.answer.id}__}" method="post" th:object="${likePost}">
-                                <!--    <input type="text" class="form-control" th:field="*{likePost}">-->
-                                <input type="submit" value="Like">
-                            </form>
-                            <form th:if="${answer.isLiked == true}" th:action="@{/user/dislike/__${answer.answer.id}__}" method="post" th:object="${likePost}">
-                                <input type="submit" value="Unlike">
-                            </form>
-                            <span th:if="${answer.answer.likes != null}" th:text="${answer.answer.likes}"></span> likes
-<!--                            <a th:href="@{/user/questions/__${question.id}__}" class="btn btn-primary">Xem câu trả lời</a>-->
+                            <div class="row">
+                                <div class="col-10">
+                                    <h5 class="card-title" th:text="${answer.user.getUsername()}"
+                                        style="color: blue"></h5>
+                                    <p class="card-text" th:text="${answer.answer.content}"></p>
+                                    <i class="card-text" style="font-size: 10px; color: #7c8686"
+                                       th:text="${answer.answer.date}"></i>
+                                </div>
+                                <div class="col-2">
+                                    <form th:if="${answer.isLiked == false}"
+                                          th:action="@{/user/like/__${answer.answer.id}__}"
+                                          method="post" th:object="${likePost}">
+                                        <!--    <input type="text" class="form-control" th:field="*{likePost}">-->
+                                        <input type="submit" class="btn btn-primary" value="Like">
+                                    </form>
+                                    <form th:if="${answer.isLiked == true}"
+                                          th:action="@{/user/dislike/__${answer.answer.id}__}"
+                                          method="post" th:object="${likePost}">
+                                        <input type="submit" class="btn btn-danger" value="Unlike">
+                                    </form>
+                                    <span th:if="${answer.answer.likes != null}"
+                                          th:text="${answer.answer.likes}"></span> likes
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
                 <div class="col-12 mt-5 text-center">
-                    <form th:action="@{/user/questions/__${question.id}__/add-answer}" method="post" th:object="${newAnswer}">
+                    <form th:action="@{/user/questions/__${question.id}__/add-answer}" method="post"
+                          th:object="${newAnswer}">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Nhập vào câu trả lời..." th:field="*{content}">
+                            <textarea name="" id="" cols="30" rows="10"  class="form-control" placeholder="Nhập vào câu trả lời..."
+                                      th:field="*{content}"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Thêm câu trả lời</button>
                     </form>
-<!--                    <a th:href="@{/user/questions/__${question.id}__/add-answer}" class="btn btn-primary">Thêm câu trả lời</a>-->
+                    <!--                    <a th:href="@{/user/questions/__${question.id}__/add-answer}" class="btn btn-primary">Thêm câu trả lời</a>-->
                 </div>
 
             </div>

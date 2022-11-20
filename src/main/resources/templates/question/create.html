@@ -17,37 +17,44 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="ml-5 navbar-brand" th:href="@{/user/questions/}">UTC SP</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/user/questions/}">Trang chủ <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Thể loại
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <div th:each="category: ${categories}">
-                        <a class="dropdown-item" th:href="@{/user/questions/category/__${category.id}__}"
-                           th:text="${category.name}">Action</a>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0 mr-5" action="/logout" method="post">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
-        </form>
-    </div>
-</nav>
 <div class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="ml-5 navbar-brand" th:href="@{/user/questions/}">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/LogoUTC.jpg" alt="" style="width: 50px; border-radius: 50%">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/user/questions/}">Trang chủ <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user/questions/form-create-question}">Thêm câu hỏi <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Thể loại
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div th:each="category: ${categories}">
+                            <a class="dropdown-item" th:href="@{/user/questions/category/__${category.id}__}"
+                               th:text="${category.name}">Action</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0 mr-5" action="/logout" method="post">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
+            </form>
+        </div>
+    </nav>
     <div class="row mt-3">
         <div class="col-12">
             <div class="row">

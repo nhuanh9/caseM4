@@ -115,8 +115,10 @@ public class QuestionController {
     public ModelAndView getQuestionById(@PathVariable("id") Long id) {
         Optional<Question> question = questionService.findById(id);
         List<Answer> answers = answerService.getAnswerByQuestionId(id);
+        Iterable<Category> categories = categoryService.findAll();
         ModelAndView modelAndView = new ModelAndView("question/detail");
         modelAndView.addObject("question", question.get());
+        modelAndView.addObject("categories", categories);
 //        modelAndView.addObject("answers", answers);
         Collections.sort(answers);
         modelAndView.addObject("answers", userLikeAnswers(getCurrentUser(), answers, likeQuestionService.findAll()));
@@ -140,6 +142,9 @@ public class QuestionController {
         ModelAndView modelAndView = new ModelAndView("question/detail");
         modelAndView.addObject("question", question.get());
 //        modelAndView.addObject("answers", answers);
+
+        Iterable<Category> categories = categoryService.findAll();
+        modelAndView.addObject("categories", categories);
         Collections.sort(answers);
         modelAndView.addObject("answers", userLikeAnswers(getCurrentUser(), answers, likeQuestionService.findAll()));
         modelAndView.addObject("answersCount", size(answers));

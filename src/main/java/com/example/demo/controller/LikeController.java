@@ -113,6 +113,8 @@ public class LikeController {
         ModelAndView modelAndView = new ModelAndView("question/detail");
         modelAndView.addObject("question", answer.getQuestion());
         Collections.sort(answers);
+        Iterable<Category> categories = categoryService.findAll();
+        modelAndView.addObject("categories", categories);
         modelAndView.addObject("answers", userLikeAnswers(user, answers, likeQuestionService.findAll()));
         modelAndView.addObject("answersCount", size(answers));
         modelAndView.addObject("newAnswer", new Answer());
